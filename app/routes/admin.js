@@ -1,7 +1,10 @@
 module.exports = (app) => {
 
     app.get('/nova', (req, res) => {
-        res.render("admin/form_add_noticia")
+        res.render("admin/form_add_noticia", {
+            validacao: [],
+            noticia:{}
+        })
     })
 
     app.post('/noticias/salvar', (req, res) => {
@@ -11,12 +14,14 @@ module.exports = (app) => {
         req.assert('resumo', 'Resumo deve conter entre 10 e 100 caracteres').len(10, 100)
         req.assert('autor', 'Autor é obrigatório').notEmpty()
         req.assert('data_noticia', 'Data é obrigatória').notEmpty()
-        req.assert('noticia','Notícia é obrigatória').notEmpty()
+        req.assert('noticia', 'Notícia é obrigatória').notEmpty()
 
         let erros = req.validationErrors()
-
-        if(erros){
-            res.render("admin/form_add_noticia")
+        if (erros) {
+            res.render("admin/form_add_noticia", {
+                validacao: erros,
+                noticia: req.body
+            })
             return
         }
 
