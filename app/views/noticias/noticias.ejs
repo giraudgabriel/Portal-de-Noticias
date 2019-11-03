@@ -16,7 +16,8 @@
 			<th>Titulo</td>
 		</thead>
 		<tbody>
-			<% noticias.forEach(noticia=>{%>
+			
+			<% if(noticias)noticias.forEach(noticia=>{%>
 			<tr>
 				<td><%= noticia.id_noticia %></td>
 				<td><%= noticia.titulo %></td>
